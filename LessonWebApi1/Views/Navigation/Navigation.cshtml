@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Navigation";
+}
+
+<h2>API Documentation in progress.33</h2>
+<h5>
+    Account:<br />
+
+    Registration:  POST:  https://stepwebapideploy.azurewebsites.net/api/registration <br>
+    Key: Content-Type    Value: application/json <br>
+
+    Body: <br>
+    { <br>
+    "email":" ",<br>
+    "password":" ",<br>
+    "surname":" ",<br>
+    "firstname":" ",<br>
+    "middleName":" ",<br>
+    "phonenumber":" ",<br>
+    "apartmentnumber":" "<br>
+    }<br>
+
+    Returns:<br>
+    {<br>
+    "status": 200  **OR**  "status": 404<br>
+    }<br>
+</h5>
+<br><br>
+<h5>
+    Authorization:  POST https://stepwebapideploy.azurewebsites.net/api/authjson <br>
+    Key: Content-Type    Value: application/json <br>
+
+    Body:<br>
+    {<br>
+      "email":" ",<br>
+      "password":" "<br>
+    }<br>
+
+    Returns:<br>
+    {<br>
+      "status": 200  **OR**   "status": 404,<br>
+      "token": " "  // Access token, duration 1 day.<br>
+    }<br>
+
+    Token payload:<br>
+    {<br>
+      "jti": " ",   // Unique identifier for this token.<br>
+      "isVerified": " ",  // Verified email or not.<br>
+      "userLocalId": " ",  // UserID in database.<br>
+      "email": " ",<br>
+      "name": " ",<br>
+      "surname": " ",<br>
+      "middlename": " ",<br>
+      "phonenum": " ",<br>
+      "apartmentnum": " ",<br>
+      "exp":  ,  // Expiration time ( second since Unix epoch ).<br>
+      "iss": "https://stepwebapideploy.azurewebsites.net/",<br>
+      "aud": "https://stepwebapideploy.azurewebsites.net/"<br>
+    }<br>
+</h5>

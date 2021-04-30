@@ -1,2 +1,2 @@
-# stepwebapi_release
+# STEP OSBB BACKEND
 STEP OSBB Backend

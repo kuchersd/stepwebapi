@@ -19,14 +19,14 @@ namespace LessonWebApi1.Controllers.Members
 
         IFirebaseConfig iconfig = new FirebaseConfig
         {
-            AuthSecret = "hidden",
-            BasePath = "hidden"
+            AuthSecret = "kATZENTJIdSNH6vxfKrYpzYrBiamvI6YJh007E8x",
+            BasePath = "https://steposbb.firebaseio.com/"
         };
 
         IFirebaseClient client;
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> AddMember([FromBody] Member member)
         {
             client = new FireSharp.FirebaseClient(iconfig);

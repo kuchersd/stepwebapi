@@ -19,8 +19,8 @@ namespace LessonWebApi1.Controllers.Contacts
 
         IFirebaseConfig iconfig = new FirebaseConfig
         {
-            AuthSecret = "hidden",
-            BasePath = "hidden"
+            AuthSecret = "kATZENTJIdSNH6vxfKrYpzYrBiamvI6YJh007E8x",
+            BasePath = "https://steposbb.firebaseio.com/"
         };
 
         IFirebaseClient client;

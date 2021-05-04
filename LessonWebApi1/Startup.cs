@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LessonWebApi1
 {
@@ -27,20 +29,20 @@ namespace LessonWebApi1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //services.AddCors(c =>
-            //{
-            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            //});
-
-            //services.Configure<MvcOptions>(options =>
-            //{
-            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowOrigin"));
-            //});
-
-            //services.AddCors();
-
-            
+            services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = "https://securetoken.google.com/steposbb";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://securetoken.google.com/steposbb",
+                    ValidateAudience = true,
+                    ValidAudience = "steposbb",
+                    ValidateLifetime = true
+                };
+            });
 
             services.AddCors(); // Make sure you call this previous to AddMvc
 
@@ -48,8 +50,6 @@ namespace LessonWebApi1
             {
                 mvcOtions.EnableEndpointRouting = false;
             });
-
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,32 +64,20 @@ namespace LessonWebApi1
                 app.UseHsts();
             }
 
-            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-            //app.UseCors(options => options.AllowAnyOrigin());
+            app.UseStaticFiles();
 
             app.UseCors(builder => builder
              .AllowAnyOrigin()
              .AllowAnyMethod()
              .AllowAnyHeader());
 
-            //app.UseCors(
-            //    options => options.AllowAnyOrigin().AllowAnyMethod()
-            //);
-
             app.UseHttpsRedirection();
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //}
-            //);
 
             app.UseMvcWithDefaultRoute();
 
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Cloud Not Find Anything");
-            //});
         }
     }
 }

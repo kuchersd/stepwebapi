@@ -17,12 +17,12 @@ namespace LessonWebApi1.Controllers
     [EnableCors(origins: "https://steposbbwebapi.azurewebsites.net", headers: "*", methods: "*")]
     public class RegistrationController : Controller
     {
-        private static string ApiKey = "hidden";
+        private static string ApiKey = "AIzaSyCZk_pPX5pQylzdr1_Ud78zJp8PY9tYFI4";
 
         IFirebaseConfig iconfig = new FireSharp.Config.FirebaseConfig
         {
-            AuthSecret = "hidden",
-            BasePath = "hidden"
+            AuthSecret = "kATZENTJIdSNH6vxfKrYpzYrBiamvI6YJh007E8x",
+            BasePath = "https://steposbb.firebaseio.com/"
         };
 
         IFirebaseClient client;
@@ -68,13 +68,6 @@ namespace LessonWebApi1.Controllers
                 catch (FirebaseAuthException ex)
                 {
                     //Якщо спіймали екцепшн.
-                    //if (ex.Reason == AuthErrorReason.EmailExists)
-                    //{
-                    //    //return Json(new { error = "Email already in use." });
-                    //    return StatusCode(400, new { error = "Email is already in use." });
-                    //}
-                    //else
-                    //    return StatusCode(400, new { error = "System error. Code: " + ex.Reason.ToString() });
                     return StatusCode(400, new { error = "Email is already in use" });
                 }
             }

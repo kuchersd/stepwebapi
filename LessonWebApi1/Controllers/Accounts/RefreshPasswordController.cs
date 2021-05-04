@@ -15,7 +15,7 @@ namespace LessonWebApi1.Controllers
     [EnableCors(origins: "https://steposbbwebapi.azurewebsites.net", headers: "*", methods: "*")]
     public class RefreshPasswordController : Controller
     {
-        private static string ApiKey = "hidden";
+        private static string ApiKey = "AIzaSyCZk_pPX5pQylzdr1_Ud78zJp8PY9tYFI4";
 
         // POST for tests: api/refreshpassword
         [HttpPost]
@@ -26,24 +26,13 @@ namespace LessonWebApi1.Controllers
             bool isEmail = ValidateEmail(refreshData.Email, out EmailErrorMessage);
             if (isEmail == true)
             {
-                //try
-                //{
-                //    UserRecord userRecord = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.get(refreshData.Email);
-                //    return StatusCode(200, new { user_uid = userRecord.Uid});
-                //}
-                //catch(FirebaseAdmin.FirebaseException ex)
-                //{
-                //    return StatusCode(400, new { error = ex.Message });
-                //}
-
                 try
                 {
                     var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 
                     var ab = auth.SendPasswordResetEmailAsync(refreshData.Email);
-                    //var user = auth.GetUserAsync(auth);
 
-                    return StatusCode(200/*, new { user_uid = userRecord.Uid}*/);
+                    return StatusCode(200);
                 }
                 catch (Firebase.Auth.FirebaseAuthException ex)
                 {
